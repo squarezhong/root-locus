@@ -5,18 +5,23 @@ from matplotlib import pyplot as plt
 
 def get_roots():
     CLI=argparse.ArgumentParser()
-    CLI.add_argument("--num", nargs="+", type=float, default=[1, 2, 3])
-    CLI.add_argument("--den", nargs="+", type=float, default=[3, 5, 7])
+    CLI.add_argument("--num", nargs="+", type=float, default=[1, 2, 3],
+                     help="the numerator of the transfer function")
+    CLI.add_argument("--den", nargs="+", type=float, default=[3, 5, 7],
+                     help="the denominator of the transfer function")
+    CLI.add_argument("--gain", nargs=1, type=int, default=15,
+                     help="the max value of gain K, default: 15")
     args = CLI.parse_args()
 
     numerator = args.num
     denominator = args.den
+    gain = args.gain
 
     zeros = np.roots(numerator)
     poles = np.roots(denominator)
 
     tf = control.TransferFunction(numerator, denominator)
-    roots, gains = control.root_locus(tf, kvect=np.linspace(0.0, 20.0, num=500),plot=False)
+    roots, gains = control.root_locus(tf, kvect=np.linspace(0.0, gain, num=1000),plot=False)
     return zeros, poles, roots, gains
 
 def plot_root_locus(zeros, poles, roots, gains):
