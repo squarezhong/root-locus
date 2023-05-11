@@ -3,6 +3,12 @@
 ## Introduction
 A python implementation of root locus. You can draw the **root locus** of a transfer function with gain K as a variable using the **commandline arguments**.
 
+## Required Packages
+- argparse
+- control
+- numpy
+- matplotlib
+
 ## Usage
 Use the terminal to complete the plot.
 - Enter the numerator coefficients of the open-loop transfer function after `--num`.
